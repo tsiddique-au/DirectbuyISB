@@ -49,6 +49,19 @@ button{width:100%;padding:14px;background:#f5c842;border:none;font-weight:700;bo
   </div>
 </div>
 
+<!-- ALL LISTINGS MAP -->
+<div class="section">
+  <h2>All Listings – Location Overview</h2>
+  <p style="color:#bbb;max-width:900px;">
+    Approximate locations for reference. Exact plot positioning shared after genuine enquiry.
+  </p>
+
+  <div id="allListingsMap"
+       style="width:100%;height:420px;border-radius:10px;border:1px solid #222;">
+  </div>
+</div>
+
+
 <!-- RESIDENTIAL -->
 <div class="section">
 <h2>Residential Properties</h2>
@@ -135,5 +148,49 @@ button{width:100%;padding:14px;background:#f5c842;border:none;font-weight:700;bo
 </div>
 
 </div>
+
+<script>
+function initAllListingsMap() {
+  const center = { lat: 33.5145, lng: 73.1280 }; // DHA Phase 2 approx center
+
+  const map = new google.maps.Map(document.getElementById("allListingsMap"), {
+    zoom: 14,
+    center: center,
+    styles: [
+      { elementType: "geometry", stylers: [{ color: "#1d1d1d" }] },
+      { elementType: "labels.text.fill", stylers: [{ color: "#f5c842" }] },
+      { elementType: "labels.text.stroke", stylers: [{ color: "#000" }] }
+    ]
+  });
+
+  const listings = [
+    { pos:{lat:33.5205,lng:73.1301}, label:"1 Kanal · St 15 · Sec G · 5.05 Cr" },
+    { pos:{lat:33.5192,lng:73.1314}, label:"10 Marla · St 16 · Sec G · 2.90 Cr" },
+    { pos:{lat:33.5187,lng:73.1321}, label:"1 Kanal SF · St 16 · Sec G · 4.30 Cr" },
+    { pos:{lat:33.5129,lng:73.1238}, label:"1 Kanal · St 4 · Sec B · 5.10 Cr" },
+    { pos:{lat:33.5216,lng:73.1290}, label:"10 Marla · St 14 · Sec G · 2.95 Cr" },
+    { pos:{lat:33.5078,lng:73.1345}, label:"10 Marla · St 7A · Sec J · 3.20 Cr" },
+    { pos:{lat:33.5154,lng:73.1219}, label:"Commercial · Tipu Blvd · Sec D · 5.50 Cr" }
+  ];
+
+  listings.forEach(l => {
+    const marker = new google.maps.Marker({
+      position: l.pos,
+      map: map,
+      label: {
+        text: l.label,
+        color: "#f5c842",
+        fontSize: "11px",
+        fontWeight: "600"
+      }
+    });
+  });
+}
+</script>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSE_icXT2sBXQRDkognSvy8PK_ONnupOU&callback=initAllListingsMap"
+  async defer>
+</script>
 </body>
 </html>
